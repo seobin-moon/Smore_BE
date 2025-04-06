@@ -2,8 +2,8 @@ package com.meossamos.smore.domain.article.recruitmentArticle.controller;
 
 import com.meossamos.smore.domain.article.recruitmentArticle.dto.*;
 import com.meossamos.smore.domain.article.recruitmentArticle.entity.RecruitmentArticle;
-import com.meossamos.smore.domain.article.recruitmentArticle.entity.RecruitmentArticleDoc;
-import com.meossamos.smore.domain.article.recruitmentArticle.service.RecruitmentArticleDocService;
+//import com.meossamos.smore.domain.article.recruitmentArticle.entity.RecruitmentArticleDoc;
+//import com.meossamos.smore.domain.article.recruitmentArticle.service.RecruitmentArticleDocService;
 import com.meossamos.smore.domain.article.recruitmentArticle.service.RecruitmentArticleService;
 import com.meossamos.smore.domain.article.recruitmentArticleClip.service.RecruitmentArticleClipService;
 import com.meossamos.smore.domain.article.recruitmentArticleComment.service.RecruitmentArticleCommentService;
@@ -11,7 +11,7 @@ import com.meossamos.smore.domain.member.member.service.MemberService;
 import com.meossamos.smore.domain.study.studyMember.service.StudyMemberService;
 import com.meossamos.smore.global.jwt.TokenProvider;
 import com.meossamos.smore.global.sse.SseEmitters;
-import com.meossamos.smore.global.util.ElasticSearchUtil;
+//import com.meossamos.smore.global.util.ElasticSearchUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ApiV1RecruitmentArticleController {
     private final RecruitmentArticleService recruitmentArticleService;
-    private final RecruitmentArticleDocService recruitmentArticleDocService;
+//    private final RecruitmentArticleDocService recruitmentArticleDocService;
     private final MemberService memberService;
     private final RecruitmentArticleClipService recruitmentArticleClipService;
     private final RecruitmentArticleCommentService recruitmentArticleCommentService;
@@ -40,43 +40,43 @@ public class ApiV1RecruitmentArticleController {
     private final TokenProvider tokenProvider;
     private final StudyMemberService studyMemberService;
 
-    @GetMapping("/recruitmentArticles")
-    public ResponseEntity<?> getRecruitmentArticles(
-            RecruitmentArticleSearchDto searchDto,
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        List<String> titleList = searchDto.getTitleList();
-        List<String> contentList = searchDto.getContentList();
-        List<String> introductionList = searchDto.getIntroductionList();
-        List<String> regionList = searchDto.getRegionList();
-        List<String> hashTagList = new ArrayList<>(searchDto.getHashTagsList());
-
-        if (userDetails != null && searchDto.isCustomRecommended()) {
-            System.out.println("user id: " + userDetails.getUsername());
-            String memberHashTags = memberService.getHashTagsByMemberId(Long.parseLong(userDetails.getUsername()));
-            List<String> memberHashTagList = List.of(memberHashTags.split(","));
-            hashTagList.addAll(memberHashTagList);
-            // 중복 제거
-            hashTagList = hashTagList.stream().distinct().toList();
-        }
-
-        hashTagList = hashTagList.stream()
-                .sorted()
-                .collect(Collectors.toList());
-
-        ElasticSearchUtil.SearchResult<RecruitmentArticleDoc> searchResult =
-                recruitmentArticleDocService.findByTitleOrContentOrIntroductionOrRegionOrHashTags(
-                        titleList, contentList, introductionList, regionList, hashTagList,
-                        searchDto.getPage(), searchDto.getSize(), searchDto.isCustomRecommended());
-
-        List<RecruitmentArticleResponseData> responseData  = recruitmentArticleDocService.convertToResponseData(searchResult.getDocs());
-
-        PagedResponse<RecruitmentArticleResponseData> pagedResponse =
-                new PagedResponse<>(responseData, searchResult.getTotalHits(), searchDto.getPage(), searchDto.getSize());
-
-
-        return ResponseEntity.ok(pagedResponse);
-    }
+//    @GetMapping("/recruitmentArticles")
+//    public ResponseEntity<?> getRecruitmentArticles(
+//            RecruitmentArticleSearchDto searchDto,
+//            @AuthenticationPrincipal UserDetails userDetails
+//    ) {
+//        List<String> titleList = searchDto.getTitleList();
+//        List<String> contentList = searchDto.getContentList();
+//        List<String> introductionList = searchDto.getIntroductionList();
+//        List<String> regionList = searchDto.getRegionList();
+//        List<String> hashTagList = new ArrayList<>(searchDto.getHashTagsList());
+//
+//        if (userDetails != null && searchDto.isCustomRecommended()) {
+//            System.out.println("user id: " + userDetails.getUsername());
+//            String memberHashTags = memberService.getHashTagsByMemberId(Long.parseLong(userDetails.getUsername()));
+//            List<String> memberHashTagList = List.of(memberHashTags.split(","));
+//            hashTagList.addAll(memberHashTagList);
+//            // 중복 제거
+//            hashTagList = hashTagList.stream().distinct().toList();
+//        }
+//
+//        hashTagList = hashTagList.stream()
+//                .sorted()
+//                .collect(Collectors.toList());
+//
+//        ElasticSearchUtil.SearchResult<RecruitmentArticleDoc> searchResult =
+//                recruitmentArticleDocService.findByTitleOrContentOrIntroductionOrRegionOrHashTags(
+//                        titleList, contentList, introductionList, regionList, hashTagList,
+//                        searchDto.getPage(), searchDto.getSize(), searchDto.isCustomRecommended());
+//
+//        List<RecruitmentArticleResponseData> responseData  = recruitmentArticleDocService.convertToResponseData(searchResult.getDocs());
+//
+//        PagedResponse<RecruitmentArticleResponseData> pagedResponse =
+//                new PagedResponse<>(responseData, searchResult.getTotalHits(), searchDto.getPage(), searchDto.getSize());
+//
+//
+//        return ResponseEntity.ok(pagedResponse);
+//    }
 
     @GetMapping("/recruitmentArticles/detail")
     public ResponseEntity<RecruitmentArticleDetailResponseData> getRecruitmentArticleDetail(

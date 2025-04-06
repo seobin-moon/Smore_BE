@@ -3,7 +3,7 @@ package com.meossamos.smore.domain.article.recruitmentArticle.service;
 import com.meossamos.smore.domain.article.recruitmentArticle.dto.SimpleRecruitmentDto;
 import com.meossamos.smore.domain.article.recruitmentArticle.dto.UpdateRecruitmentArticleDto;
 import com.meossamos.smore.domain.article.recruitmentArticle.entity.RecruitmentArticle;
-import com.meossamos.smore.domain.article.recruitmentArticle.repository.RecruitmentArticleDocRepository;
+//import com.meossamos.smore.domain.article.recruitmentArticle.repository.RecruitmentArticleDocRepository;
 import com.meossamos.smore.domain.article.recruitmentArticle.repository.RecruitmentArticleRepository;
 import com.meossamos.smore.domain.member.member.entity.Member;
 import com.meossamos.smore.domain.member.member.service.MemberService;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecruitmentArticleService {
     private final RecruitmentArticleRepository recruitmentArticleRepository;
-    private final RecruitmentArticleDocRepository recruitmentArticleDocRepository;
+//    private final RecruitmentArticleDocRepository recruitmentArticleDocRepository;
     private final MemberService memberService;
     private final StudyService studyService;
 
@@ -138,10 +138,10 @@ public class RecruitmentArticleService {
         System.out.println("Deleted article from MySQL DB");
 
         // Elasticsearch에서도 해당 도큐먼트를 삭제
-        try {
-            recruitmentArticleDocRepository.deleteById(String.valueOf(article.getId()));
-        } catch (Exception e) {
-            System.out.println("Failed to delete document from Elasticsearch: " + e.getMessage());
-        }
+//        try {
+//            recruitmentArticleDocRepository.deleteById(String.valueOf(article.getId()));
+//        } catch (Exception e) {
+//            System.out.println("Failed to delete document from Elasticsearch: " + e.getMessage());
+//        }
     }
 }

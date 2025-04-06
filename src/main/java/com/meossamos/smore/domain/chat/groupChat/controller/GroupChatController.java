@@ -8,7 +8,6 @@ import com.meossamos.smore.domain.member.member.service.MemberService;
 import com.meossamos.smore.domain.study.study.entity.Study;
 import com.meossamos.smore.domain.study.study.service.StudyService;
 import com.meossamos.smore.domain.study.studyMember.dto.ParticipantDto;
-import com.meossamos.smore.domain.study.studyMember.dto.StudyMemberDto;
 import com.meossamos.smore.domain.study.studyMember.service.StudyMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
